@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipyt"
+version = "0.1.0"
+dependencies = [
+	"click",
+	"requests",
+	"yt-dlp",
+	"pyfiglet",
+	"columnar"
+]
+
+[project.scripts]
+pipyt = "pipyt.__main__:main"
