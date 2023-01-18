@@ -2,11 +2,11 @@
 
 A YT Music searcher/downloader using Piped's API. 🎧🎶
 
-## INSTALATION
+## INSTALLATION
 
 ### PyPI
 
-pip install pipyt
+`pip install pipyt`
 
 ## BASIC USAGE
 
@@ -20,4 +20,4 @@ pipyt COMMAND [OPTIONS] INPUT
 
 `pipyt find <song_name>`
 
-`pipyt down <video_id/url>`
+`pipyt down <url/video_id>`
