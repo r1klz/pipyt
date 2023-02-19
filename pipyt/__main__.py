@@ -154,7 +154,8 @@ def find(query: str, song, album, album_show, result_number) -> None:
 @click.option('-m', '--mp3', is_flag=True, help='Converts audio to MP3. (default)')
 @click.option('-f', '--flac', is_flag=True, help='Converts audio to FLAC.')
 @click.option('-q', '--quality', default=320, show_default=True, help="Set audio's bitrate.")
-def down(url, mp3, flac, quality):
+@click.option('-o', '--output', default='.', help='File(s) output directory.')
+def down(url, mp3, flac, quality, output):
     '''
     The download command.
 
@@ -190,7 +191,7 @@ def down(url, mp3, flac, quality):
         audio_format: str = 'MP3'
 
     ytdl_opts: dict = {
-        'outtmpl': '%(title)s.%(ext)s',
+        'outtmpl': f'{output}/%(track)s.%(ext)s',
         'format': 'bestaudio/best',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
