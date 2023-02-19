@@ -42,13 +42,15 @@ def find(query: str, song, album, album_show, result_number) -> None:
     def find_music_songs(query: str) -> None:
         click.echo(f'Searching for {query}...')
         try:
-            res = requests.get(API_SEARCH_URL, params={'q': query, 'filter': 'music_songs'})
+            res = requests.get(API_SEARCH_URL, params={
+                               'q': query, 'filter': 'music_songs'})
             # RequestsJSONDecodeError
             data: dict = res.json()
         except requests.exceptions.ConnectionError:
-            click.echo('\n\033[0;31mERROR:\033[0m Could not establish connection. Please check your network or try again.')
+            click.echo(
+                '\n\033[0;31mERROR:\033[0m Could not establish connection. Please check your network or try again.')
             return
- 
+
         headers: list = ['', 'music/song name', 'uploader', 'url']
         index: int = 0
         music_songs: list = []
@@ -61,12 +63,13 @@ def find(query: str, song, album, album_show, result_number) -> None:
                 break
             index += 1
             music_songs.append([str(index) + '.', name, uploader, url])
- 
+
         return click.echo(columnar(music_songs, headers, no_borders=True))
 
     def find_albums(query: str) -> None:
         click.echo(f'Searching for {query}...')
-        res = requests.get(API_SEARCH_URL, params={'q': query, 'filter': 'music_albums'})
+        res = requests.get(API_SEARCH_URL, params={
+                           'q': query, 'filter': 'music_albums'})
         data: dict = res.json()
 
         headers: list = ['', 'album name', 'uploader', 'url']
@@ -85,7 +88,8 @@ def find(query: str, song, album, album_show, result_number) -> None:
 
     def search_find_album_tracks(query: str) -> None:
         click.echo(f'Searching for {query}...')
-        res = requests.get(API_SEARCH_URL, params={'q': query, 'filter': 'music_albums'})
+        res = requests.get(API_SEARCH_URL, params={
+                           'q': query, 'filter': 'music_albums'})
         data: dict = res.json()
 
         headers: list = ['', 'album name', 'uploader', 'url']
@@ -104,16 +108,20 @@ def find(query: str, song, album, album_show, result_number) -> None:
 
         while True:
             try:
-                users_choice: int = int(input('Choose an album (by index) or press "CTRL+C" to exit. '))
+                users_choice: int = int(
+                    input('Choose an album (by index) or press "CTRL+C" to exit. '))
                 if users_choice > len(albums_list) or users_choice == 0:
-                    click.echo(f'\033[0;31mERROR:\033[0m {users_choice} does not exist. Please enter a valid index.\n')
+                    click.echo(
+                        f'\033[0;31mERROR:\033[0m {users_choice} does not exist. Please enter a valid index.\n')
                     continue
             except ValueError:
-                click.echo('\033[0;31mERROR:\033[0m Only integers are allowed. Please enter a valid index.\n')
+                click.echo(
+                    '\033[0;31mERROR:\033[0m Only integers are allowed. Please enter a valid index.\n')
                 continue
             break
 
-        album_id: str = data['items'][users_choice - 1]['url'].replace('/playlist?list=', '')
+        album_id: str = data['items'][users_choice -
+                                      1]['url'].replace('/playlist?list=', '')
 
         click.clear()
         res = requests.get(API_URL + 'playlists/' + album_id)
@@ -145,7 +153,7 @@ def find(query: str, song, album, album_show, result_number) -> None:
 @click.argument('url', nargs=-1)
 @click.option('-m', '--mp3', is_flag=True, help='Converts audio to MP3. (default)')
 @click.option('-f', '--flac', is_flag=True, help='Converts audio to FLAC.')
-@click.option('-q', '--quality', default=128, show_default=True, help="Set audio's bitrate.")
+@click.option('-q', '--quality', default=320, show_default=True, help="Set audio's bitrate.")
 def down(url, mp3, flac, quality):
     '''
     The download command.
@@ -153,7 +161,7 @@ def down(url, mp3, flac, quality):
     \b
     EXAMPLES
         pipyt down ejlmxPm1fQY (only the ID)
-        pipyt down -q 320 https://youtu.be/jFigcd4JTtE
+        pipyt down -q 256 https://youtu.be/jFigcd4JTtE
         pipyt down -f https://youtu.be/6tnv-JDJC0Q
     '''
 
@@ -182,16 +190,16 @@ def down(url, mp3, flac, quality):
         audio_format: str = 'MP3'
 
     ytdl_opts: dict = {
-            'outtmpl': '%(title)s.%(ext)s',
-            'format': 'bestaudio/best',       
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': audio_format,
-                'preferredquality': quality
-                }],
-            'progress_hooks': [hooks],
-            'logger': Logger(),
-            }
+        'outtmpl': '%(title)s.%(ext)s',
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': audio_format,
+            'preferredquality': quality
+        }],
+        'progress_hooks': [hooks],
+        'logger': Logger(),
+    }
 
     try:
         with yt_dlp.YoutubeDL(ytdl_opts) as ytdl:
@@ -200,7 +208,8 @@ def down(url, mp3, flac, quality):
                 click.echo(f'Downloading "{info["title"]}"...')
                 ytdl.download(url)
     except yt_dlp.utils.DownloadError:
-        click.echo(f'\033[0;31mERROR:\033[0m [youtube] Link unavailable, try another please.')
+        click.echo(
+            f'\033[0;31mERROR:\033[0m [youtube] Link unavailable, try another please.')
 
 
 main()
