@@ -1,4 +1,10 @@
-# pipyt
+```
+ ______ __               __
+|   __ \__|.-----.--.--.|  |_
+|    __/  ||  _  |  |  ||   _|
+|___|  |__||   __|___  ||____|
+           |__|  |_____|
+```
 
 A YT Music searcher/downloader using Piped's API. 🎧🎶
 
@@ -14,7 +20,7 @@ A YT Music searcher/downloader using Piped's API. 🎧🎶
 pipyt COMMAND [OPTIONS] INPUT
 ```
 
-* `pipyt <command> --help` for more helping.
+- `pipyt <command> --help` for more helping.
 
 ### EXAMPLES
 

@@ -1,15 +1,10 @@
 import click
 import requests
 import yt_dlp
-from pyfiglet import Figlet
 from columnar import columnar
 
 BASE_URL: str = 'https://piped.privacydev.net/'
 API_URL: str = 'https://api.piped.privacydev.net/'
-
-print(f'''{Figlet(font="chunky").renderText("Pipyt")}
-A YT Music searcher/downloader using Piped's API. 🎧🎶
-      ''')
 
 
 @click.group()
