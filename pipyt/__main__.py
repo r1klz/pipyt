@@ -137,11 +137,12 @@ def find(query: str, song, album, album_show, result_number) -> None:
 
 @main.command()
 @click.argument('url', nargs=-1)
-@click.option('-m', '--mp3', is_flag=True, help='Converts audio to MP3. (default)')
 @click.option('-f', '--flac', is_flag=True, help='Converts audio to FLAC.')
-@click.option('-q', '--quality', default=320, show_default=True, help="Set audio's bitrate.")
+@click.option('-m', '--mp3', is_flag=True, help='Converts audio to MP3. (default)')
 @click.option('-o', '--output', default='.', help='File(s) output directory.')
-def down(url, mp3, flac, quality, output):
+@click.option('-q', '--quality', default=320, show_default=True, help="Set audio's bitrate.")
+@click.option('-v', '--vorbis', is_flag=True, help='Converts audio to OGG.')
+def down(url, flac, vorbis, mp3, output, quality):
     '''
     The download command.
 
@@ -165,6 +166,8 @@ def down(url, mp3, flac, quality, output):
     def hooks(down_progress: dict) -> None:
         if down_progress['status'] == 'finished':
             click.echo('Done.')
+            if audio_format == 'VORBIS':
+                click.echo(f'Converting to OGG...')
             click.echo(f'Converting to {audio_format}...')
 
     if url == int:
@@ -173,6 +176,8 @@ def down(url, mp3, flac, quality, output):
         audio_format: str = 'MP3'
     elif flac:
         audio_format: str = 'FLAC'
+    elif vorbis:
+        audio_format: str = 'VORBIS'
     else:
         audio_format: str = 'MP3'
 
