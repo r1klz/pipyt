@@ -6,13 +6,13 @@
            |__|  |_____|
 ```
 
-A YT Music searcher/downloader using Piped's API. 🎧🎶
+A basic CLI application that searches and downloads YT Music songs
 
 ## INSTALLATION
 
 ### PyPI
 
-`pip install pipyt`
+`pip install -U pipyt`
 
 ## BASIC USAGE
 
@@ -30,5 +30,5 @@ pipyt COMMAND [OPTIONS] INPUT
 
 ## TODO
 
-- Add a config file for setting a default instance of Piped and for setting the default output directory to save downloaded songs;
+- Add a config file ~for setting a default instance of Piped and~ for setting the default output directory to save downloaded songs;
 - Refact all code and remove click's dependency.

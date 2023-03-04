@@ -15,7 +15,7 @@ else:
 
 
 @click.group()
-@click.version_option('0.1.0', prog_name='pipyt')
+@click.version_option('0.1.1', prog_name='pipyt')
 def main() -> None:
     pass
 
