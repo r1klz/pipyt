@@ -15,8 +15,8 @@ dependencies = [
 ]
 
 [project.urls]
-source = "https://github.com/r1klz/pipyt"
-tracker = "https://github.com/r1klz/pipyt/issues"
+Source = "https://github.com/r1klz/pipyt"
+Issues = "https://github.com/r1klz/pipyt/issues"
 
 [project.scripts]
 pipyt = "pipyt.__main__:main"
