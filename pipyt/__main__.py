@@ -1,10 +1,17 @@
 import click
+import json
+import os.path
 import requests
 import yt_dlp
 from columnar import columnar
 
-BASE_URL: str = 'https://piped.privacydev.net/'
-API_URL: str = 'https://api.piped.privacydev.net/'
+CONF_FILE = os.path.join(f'{os.environ["HOME"]}/.config/pipyt/config.json')
+if os.path.isfile(CONF_FILE):
+    with open(CONF_FILE, 'r') as f:
+        config: dict = json.load(f)
+        API_URL = config.get('piped_instance_api')
+else:
+    API_URL: str = 'https://pipedapi.kavin.rocks/'
 
 
 @click.group()
